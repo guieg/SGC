@@ -1,6 +1,6 @@
 /*comandos npm
 npm init
-npm instal nodemon -g 
+npm install nodemon -g 
 npm install -- save express
 npm install express-session
 npm install --save body-parser
@@ -44,7 +44,7 @@ function conectiondb(){
         password: '', // A senha do usuário. Ex: user123
         database: 'dblogin' // A base de dados a qual a aplicação irá se conectar, deve ser a mesma onde foi executado o Código 1. Ex: node_mysql
     });
-
+    
     //verifica conexao com o banco
     con.connect((err) => {
         if (err) {
