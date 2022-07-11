@@ -33,19 +33,20 @@ function conectiondb(){
 
 var con = conectiondb()
 
-var query = 'SELECT * FROM cliente'
+var query = 'SELECT * FROM usuario'
 
 con.query(query, function(err, results) {
     console.log(results)
 })
 
 
-var query2 = "INSERT INTO usuario VALUES (103, 'teste', 'teste', 'teste', '00000000000', 'teste@teste.com', '2109210', 'casa');"
+var query2 = "INSERT INTO usuario (id, username, senha, nome, cpf, email, telefone, endereco) VALUES (?,?,?,?,?,?,?,?)"
 
+var fields = [103, 'teste', 'teste', 'teste', '00000000000', 'teste@teste.com', '2109210', 'casa']
 
-con.query(query, function(err, results) {
-    if(err) throw(err);
-    else console.log(results)
+con.query(query2, fields, function(err, result) {
+    if(err) throw err;
+    else console.log("OK")
 })
 
 
