@@ -40,9 +40,9 @@ con.query(query, function(err, results) {
 })
 
 
-var query2 = "INSERT INTO usuario (id, username, senha, nome, cpf, email, telefone, endereco) VALUES (?,?,?,?,?,?,?,?)"
+var query2 = "INSERT INTO usuario (username, senha, nome, cpf, email, telefone, endereco) VALUES (?,?,?,?,?,?,?)"
 
-var fields = [103, 'teste', 'teste', 'teste', '00000000000', 'teste@teste.com', '2109210', 'casa']
+var fields = ['teste', 'teste', 'teste', '00000000000', 'teste@teste.com', '2109210', 'casa']
 
 con.query(query2, fields, function(err, result) {
     if(err) throw err;
