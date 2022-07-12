@@ -47,7 +47,7 @@ var fields = ['teste', 'teste', 'teste', '00000000000', 'teste@teste.com', '2109
 con.query(query2, fields, function(err, result) {
     if(err) throw err;
     else console.log("OK")
-})
+});
 
 
 con.query(query, function(err, results) {
