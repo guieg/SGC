@@ -5,4 +5,8 @@ module.exports = class Cliente extends Usuario {
     constructor(id, username, senha, nome, cpf, email, telefone, endereco) {
         super(id, username, senha, nome, cpf, email, telefone, endereco);
     }
+
+    constructor(username, senha, nome, cpf, email, telefone, endereco) {
+        super(username, senha, nome, cpf, email, telefone, endereco);
+    }
 }
