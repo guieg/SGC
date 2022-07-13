@@ -20,7 +20,8 @@ function listarUsuario(usuario) {
 
     connection.query(query, usuario, function(err, result) {
         if(err) throw err;
-        usuarios = result.map((tuple) => new Usuario(tuple));
+        console.log(result);
+        //usuarios = result.map((tuple) => new Usuario(tuple));
     });
     //console.log(usuarios);
     connection.end();
