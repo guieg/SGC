@@ -1,7 +1,6 @@
-const mysql = require("mysql"); 
+const mysql = require("mysql");
 
-
-module.exports = connect(){
+function connect(){
     var con = mysql.createConnection({
         host: 'localhost', // O host do banco. Ex: localhost
         user: 'root', // Um usuário do banco. Ex: user 
@@ -20,3 +19,5 @@ module.exports = connect(){
 
     return con;
 }
+
+module.exports = {connect}

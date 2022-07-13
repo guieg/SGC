@@ -2,10 +2,10 @@ const db = require('../../utils/db')
 const Usuario = require('../usuario.model')
 
 
+
 function inserirUsuario(usuario) {
     connection = db.connect();
-    let query = "INSERT INTO usuario (username, senha, nome, cpf, email, telefone, endereco) VALUES ?";
-
+    let query = "INSERT INTO usuario SET ?";
     connection.query(query, usuario, function(err) {
         if(err) throw err;
     });
@@ -15,16 +15,16 @@ function inserirUsuario(usuario) {
 
 function listarUsuario(usuario) {
     connection = db.connect();
-    let query = "'SELECT * FROM usuario'";
+    let query = "SELECT * FROM usuario";
     let usuarios = [];
 
     connection.query(query, usuario, function(err, result) {
         if(err) throw err;
-        for (tuple in result) {
-            usuarios.push(new Usuario(usuario));  
-        }
+        usuarios = result.map((tuple) => new Usuario(tuple));
     });
-
+    //console.log(usuarios);
     connection.end();
     return usuarios;
 }
+
+module.exports = {inserirUsuario, listarUsuario}
