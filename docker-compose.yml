@@ -1,0 +1,13 @@
+services:
+
+  mysql:
+    image: mysql
+    ports:
+      - 3306:3306
+      - 33060:33060
+    environment:
+      - MYSQL_ROOT_PASSWORD=010203
+    volumes:
+      - ./data:/var/lib/mysql
+      - ./scripts/init-database.sql:/docker-entrypoint-initdb.d/1.sql
+    command: "mysqld --lower_case_table_names=1" 
