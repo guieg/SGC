@@ -1,6 +1,5 @@
-const db = require('../../utils/db')
-const Usuario = require('../usuario.model')
-const Promise = require('bluebird');
+const db = require('../../utils/db');
+const Usuario = require('../usuario.model');
 
 
 
@@ -14,15 +13,22 @@ function inserirUsuario(usuario) {
     connection.end();
 }
 
-function listarUsuario(usuario) {
+function consultaUsuario(id) {
     connection = db.connectSync();
-    let query = "SELECT * FROM usuario";
-    let  usuarios = [];
-
-
-    usuarios = connection.query(query);
-    return usuarios;
+    let query;
+    if (id == undefined) {
+       query = "SELECT * FROM usuario"
+    } else {
+        query = "SELECT * FROM usuario WHERE id = " + db.mysql.escape(id);
+    }
+    let  usuarios = connection.query(query);
+    let lista = [];
+    for (let index = 0; index < usuarios.length; index++) {
+        lista.push(new Usuario( usuarios[index]));
+    }    
+    
+    return lista;
 
 }
 
-module.exports = {inserirUsuario, listarUsuario}
+module.exports = {inserirUsuario, consultaUsuario}

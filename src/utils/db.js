@@ -29,4 +29,4 @@ function connectSync(){
     return new syncSql(config);
 }
 
-module.exports = {connect, connectSync}
+module.exports = {connect, connectSync, mysql}
