@@ -1,5 +1,6 @@
 const mysql = require("mysql");
 const syncSql = require("sync-mysql")
+const util = require('util')
 
 
 const config = {
@@ -21,6 +22,7 @@ function connect(){
         console.log('Connection established!');
     });
 
+    con.query = util.promisify(con.query);
     return con;
 }
 
