@@ -1,5 +1,6 @@
 const db = require('../../utils/db')
 const Usuario = require('../usuario.model')
+const Promise = require('bluebird');
 
 
 
@@ -14,18 +15,14 @@ function inserirUsuario(usuario) {
 }
 
 function listarUsuario(usuario) {
-    connection = db.connect();
+    connection = db.connectSync();
     let query = "SELECT * FROM usuario";
-    let usuarios = [];
+    let  usuarios = [];
 
-    connection.query(query, usuario, function(err, result) {
-        if(err) throw err;
-        console.log(result);
-        //usuarios = result.map((tuple) => new Usuario(tuple));
-    });
-    //console.log(usuarios);
-    connection.end();
+
+    usuarios = connection.query(query);
     return usuarios;
+
 }
 
 module.exports = {inserirUsuario, listarUsuario}
