@@ -1,19 +1,28 @@
-const Cliente = require('./model/cliente.model')
-const usuarioDAO = require('./model/DAO/usuario.dao')
+const usuarioController = require('./controller/usuario.controller');
+const path = require('path');
+const express = require('express');
+const app = express();
+app.use(express.json())
+app.use(express.urlencoded({extended: true}))
 
 
-async function main() {
-    let novoCliente = new Cliente({username: 'Teste', senha: '1234', nome: 'Teste', cpf: '00000000000', email: "email@email.com", telefone: "0000000", endereco: "Casa"});
-    //console.log(novoCliente);
-    
-    //usuarioDAO.inserirUsuario(novoCliente);
-    let teste;
-    teste = await usuarioDAO.listarUsuario();
-    console.log(teste);
+app.get("/usuarios", async function(req, res){
+    res.send(await usuarioController.listarUsuarios());
+});
 
-  }
-  
-  if (require.main === module) {
-    main();
-  }
+app.get("/usuario/:id", async function(req, res){
+    res.send(await usuarioController.getUsuario(req.params.id));
+});
+
+
+app.delete("/usuario/:id", async function(req, res){
+    res.send(await usuarioController.deleteUsuario(req.params.id));
+});
+
+app.post("/usuario", async function(req, res){
+    res.send(await usuarioController.postUsuario(req.body));
+});
+
+app.listen(8081, () => console.log(`SGC api iniciada!`));
+
 

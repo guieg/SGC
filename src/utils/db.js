@@ -19,7 +19,7 @@ function connect(){
             console.log('Erro connecting to database...', err);
             return;
         }
-        console.log('Connection established!');
+        //console.log('Connection established!');
     });
 
     con.query = util.promisify(con.query);
@@ -31,4 +31,4 @@ function connectSync(){
     return new syncSql(config);
 }
 
-module.exports = {connect, connectSync}
+module.exports = {connect, connectSync, mysql}
