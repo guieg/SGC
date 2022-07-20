@@ -1,6 +1,7 @@
 const usuarioDAO = require('../model/DAO/usuario.dao');
 const Usuario = require('../model/usuario.model');
 const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 
 
 async function listarUsuarios() {
@@ -24,7 +25,6 @@ async function postUsuario(body) {
 
 async function cadastroUsuario(body, res) {
     let usuario = await usuarioDAO.recuperaUsuarioPorEmail(body.email);
-    console.log(usuario);
     if (usuario != undefined) return  res.status(409).send({msg: 'Usuário já existe'});
     bcrypt.hash(body.senha, 10, (err, hash) => {
         if(err) return  res.status(500).send({msg:'Erro interno'});
