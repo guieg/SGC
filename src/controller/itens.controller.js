@@ -25,7 +25,7 @@ async function updateItemDescricao(id, desc) {
 }
 
 async function updateItemChassi(id, chassi) {
-    let automovel = await automovelDAO.recuperaAutomovelPorChassi(body.chassi);
+    let automovel = await automovelDAO.recuperaAutomovelPorChassi(chassi);
     if (automovel == undefined) return res.status(400).send({msg: 'Automóvel não existe'});
     return await itensDAO.updateItemChassi(id, chassi);
 }
