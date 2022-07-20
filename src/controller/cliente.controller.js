@@ -17,10 +17,9 @@ async function deleteCliente(id) {
 }
 
 async function postCliente(body) {
-    usuarioDAO.postCliente(body);
     let novoCliente = new Usuario({id: body.id});
     return await clienteDAO.inserirCliente(novoCliente);
 }
 
 
-module.exports = {listarClientes, getCliente, deleteCliente, updateClienteUsername, updateClienteSenha, updateClienteNome, updateClienteCPF, updateClienteEmail, updateClienteTelefone, updateClienteEndereco, postCliente}
+module.exports = {listarClientes, getCliente, deleteCliente, postCliente}

@@ -4,6 +4,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const vendedorController = require('./vendedor.controller');
 const clienteController = require('./cliente.controller');
+const { recuperaClientePorId } = require('../model/DAO/cliente.dao');
 
 
 async function checaVendedor(id) {
@@ -35,18 +36,19 @@ async function deleteUsuario(id) {
 
 async function postUsuario(body) {
     let novoUsuario = new Usuario({username: body.username, senha: body.senha, nome: body.nome, cpf: body.cpf, email: body.email, telefone: body.telefone, endereco: body.endereco});
-    return await usuarioDAO.inserirUsuario(novoUsuario);
+    await usuarioDAO.inserirUsuario(novoUsuario);
 }
 
-async function cadastroUsuario(body, res, role) {
+async function cadastroUsuario(body, res) {
     let usuario = await usuarioDAO.recuperaUsuarioPorEmail(body.email);
     if (usuario != undefined) return  res.status(409).send({msg: 'Usuário já existe'});
-    bcrypt.hash(body.senha, 10, (err, hash) => {
+    bcrypt.hash(body.senha, 10, async (err, hash) => {
         if(err) return  res.status(500).send({msg:'Erro interno'});
         body.senha = hash;
-        postUsuario(body);
-        if (role == 'Vendedor') vendedorController.postVendedor(body);
-        if (role == 'Cliente') 
+        await postUsuario(body);
+        //body.id = await usuarioDAO.recuperaUsuarioPorEmail(body.email).id;
+        //if (body.role == 'Vendedor') vendedorController.postVendedor(body);
+       // if (body.role == 'Cliente') clienteController.postCliente(body);
     });
     return res.status(201).send({msg: 'OK'});
 }
