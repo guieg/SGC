@@ -1,12 +1,17 @@
 const mysql = require("mysql");
+const syncSql = require("sync-mysql")
+const util = require('util')
+
+
+const config = {
+    host: 'localhost', // O host do banco. Ex: localhost
+    user: 'root', // Um usuário do banco. Ex: user 
+    password: '010203', // A senha do usuário. Ex: user123
+    database: 'sgc' // A base de dados a qual a aplicação irá se conectar, deve ser a mesma onde foi executado o Código 1. Ex: node_mysql
+}
 
 function connect(){
-    var con = mysql.createConnection({
-        host: 'localhost', // O host do banco. Ex: localhost
-        user: 'root', // Um usuário do banco. Ex: user 
-        password: '010203', // A senha do usuário. Ex: user123
-        database: 'sgc' // A base de dados a qual a aplicação irá se conectar, deve ser a mesma onde foi executado o Código 1. Ex: node_mysql
-    });
+    var con = mysql.createConnection(config);
     
     //verifica conexao com o banco
     con.connect((err) => {
@@ -14,10 +19,16 @@ function connect(){
             console.log('Erro connecting to database...', err);
             return;
         }
-        console.log('Connection established!');
+        //console.log('Connection established!');
     });
 
+    con.query = util.promisify(con.query);
     return con;
 }
 
-module.exports = {connect}
+
+function connectSync(){
+    return new syncSql(config);
+}
+
+module.exports = {connect, connectSync, mysql}
