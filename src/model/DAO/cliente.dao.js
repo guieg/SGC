@@ -5,8 +5,6 @@ const UsuarioDAO = require('./usuario.dao')
 
 function inserirCliente(cliente) {
 
-    UsuarioDAO.inserirUsuario(cliente);
-
     connection = db.connect();
     let query = "INSERT INTO cliente (u_id) VALUES (?)";
     connection.query(query, cliente.id, function(err) {
