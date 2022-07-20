@@ -30,9 +30,20 @@ async function cadastroUsuario(body) {
         body.senha = hash;
         postUsuario(body);
     });
+    return 201
+}
+
+async function loginUsuario(body) {
+    let usuario = usuarioDAO.recuperaUsuarioPorEmail(body.email);
+    if (!usuario) return 400;
+    bcrypt.compare(body.senha, usuario.senha, (err, result) => {
+        if (err) return 401
+        const token = jwt.sign({id:usuario.id},'secrect',{ expiresIn: '1h' });
+        return token;
+    });
     
 }
 
 
 
-module.exports = {cadastroUsuario, listarUsuarios, getUsuario, deleteUsuario, postUsuario}
+module.exports = {loginUsuario, cadastroUsuario, listarUsuarios, getUsuario, deleteUsuario, postUsuario}
