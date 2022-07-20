@@ -9,4 +9,3 @@ app.use('/', require('./routes/usuario.routes'));
 
 app.listen(8081, () => console.log(`SGC api iniciada!`));
 
-

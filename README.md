@@ -14,7 +14,7 @@ npm i
 
 # No mysql
 
-Não é preciso mais fazer foward engeniring no workbench para criar o database. Basta copiar o conteudo de init-database.sql e executar uma query.
+Não é preciso mais fazer Forward Engineering no MySQL Workbench para criar o database. Basta copiar o conteudo de init-database.sql e executar uma query.
 
 Liberar acesso:
 
