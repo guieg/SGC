@@ -7,20 +7,22 @@ const { validationResult } = require('express-validator');
 const bcrypt = require('bcryptjs');
 
 router.get("/usuarios", async function(req, res){
-    res.send(await usuarioController.listarUsuarios());
+    return res.send(await usuarioController.listarUsuarios());
 });
 
 router.get("/usuario/:id", async function(req, res){
-    res.send(await usuarioController.getUsuario(req.params.id));
+    return res.send(await usuarioController.getUsuario(req.params.id));
 });
 
 
 router.delete("/usuario/:id", async function(req, res){
-    res.send(await usuarioController.deleteUsuario(req.params.id));
+    let id = await usuarioController.authToken(req);
+    if (!id) return res.status(403).send("Acesso negado");
+    return res.send(await usuarioController.deleteUsuario(req.params.id));
 });
 
 router.post("/usuario", async function(req, res){
-    res.send(await usuarioController.postUsuario(req.body));
+    return res.send(await usuarioController.postUsuario(req.body));
 });
 
 router.post("/cadastro", signupValidation, async function(req, res){

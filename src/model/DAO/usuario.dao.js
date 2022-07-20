@@ -26,16 +26,11 @@ async function listarUsuarios() {
 
 
 async function recuperaUsuarioPorId(id) {
-    let query = "SELECT * FROM usuario WHERE `id` = "+ db.mysql.escape(id);
+    let query = "SELECT * FROM usuario WHERE id = "+ db.mysql.escape(id);
     connection = db.connect();
     let response = await connection.query(query);
     connection.end();
-    let usuarios = [];
-    for (let index = 0; index < response.length; index++) {
-        usuarios.push(new Usuario(response[index]));
-        
-    }
-    return usuarios;
+    return response[0];
 }
 
 async function recuperaUsuarioPorEmail(email) {

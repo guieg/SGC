@@ -14,7 +14,8 @@ async function getUsuario(id) {
 
 
 async function deleteUsuario(id) {
-    return await usuarioDAO.deletaUsuarioPorId(id);
+    if(await usuarioDAO.recuperaUsuarioPorId(id) != undefined) return await usuarioDAO.deletaUsuarioPorId(id)
+    return undefined;
 }
 
 
@@ -45,6 +46,29 @@ async function loginUsuario(body, res) {
     
 }
 
+async function authToken(req) {
+    if(
+        !req.headers.authorization ||
+        !req.headers.authorization.startsWith('Bearer') ||
+        !req.headers.authorization.split(' ')[1]
+    ){
+        return false;
+    }
+    try{
+        const token = req.headers.authorization.split(' ')[1];
+        const decoded = jwt.verify(token, 'secrect');
+        let usuario = await usuarioDAO.recuperaUsuarioPorId(decoded.id);
+        if (usuario != undefined) {
+            return decoded;
+        }
+    }
+    catch (e){
+        console.log(e);
+    }
+    return false;
+    
+}
 
 
-module.exports = {loginUsuario, cadastroUsuario, listarUsuarios, getUsuario, deleteUsuario, postUsuario}
+
+module.exports = {authToken, loginUsuario, cadastroUsuario, listarUsuarios, getUsuario, deleteUsuario, postUsuario}
