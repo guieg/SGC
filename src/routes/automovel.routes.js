@@ -13,8 +13,6 @@ router.get("/automovel/:chassi", async function(req, res){
 
 
 router.delete("/automovel/:chassi", async function(req, res){
-    let id = await usuarioController.authToken(req);
-    if (!id) return res.status(403).send("Acesso negado");
     return res.send(await automovelController.deleteAutomovel(req.params.chassi));
 });
 
