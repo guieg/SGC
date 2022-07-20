@@ -1,7 +1,7 @@
 const db = require('../../utils/db')
 const Itens = require('../itens.model')
 
-function inserirItem(itens) {
+async function inserirItem(itens) {
     let query = "INSERT INTO itens SET ?";
     connection = db.connect();
     connection.query(query, itens, function(err) {
@@ -89,4 +89,4 @@ async function updateItemChassi(id, a_chassi) {
     return itens;
 }
 
-module.exports = {inserirItem, listarItens, recuperaItemPorID, deletaItemPorID, updateItemNome, updateItemDescricao, updateItemDescricao}
+module.exports = {inserirItem, listarItens, recuperaItemPorID, deletaItemPorID, updateItemNome, updateItemDescricao, updateItemDescricao, updateItemChassi}
