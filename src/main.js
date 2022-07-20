@@ -8,6 +8,9 @@ app.use(express.urlencoded({extended: true}))
 
 
 app.use('/api', require('./routes/usuario.routes'));
+app.use('/api', require('./routes/automovel.routes'));
+app.use('/api', require('./routes/venda.routes'));
+app.use('/api', require('./routes/modelo.routes'));
 
 app.use((err, req, res, next) => {
     // console.log(err);

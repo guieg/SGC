@@ -13,8 +13,6 @@ router.get("/venda/:num_nota_fiscal", async function(req, res){
 
 
 router.delete("/venda/:num_nota_fiscal", async function(req, res){
-    let id = await usuarioController.authToken(req);
-    if (!id) return res.status(403).send("Acesso negado");
     return res.send(await vendaController.deleteVenda(req.params.id));
 });
 

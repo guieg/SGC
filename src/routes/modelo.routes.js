@@ -1,25 +1,23 @@
 const express = require('express');
-const usuarioController = require('../controller/usuario.controllerr');
+const modeloController = require('../controller/modelo_fabricante.controller');
 const router = express.Router();
 const { signupValidation, loginValidation } = require('../utils/validation');
 
 router.get("/modelos", async function(req, res){
-    return res.send(await usuarioController.listarUsuarios());
+    return res.send(await modeloController.listarModeloFabricante());
 });
 
 router.get("/modelo/:modelo", async function(req, res){
-    return res.send(await usuarioController.getUsuario(req.params.id));
+    return res.send(await modeloController.postModeloFabricante(req.params.modelo));
 });
 
 
 router.delete("/modelo/:modelo", async function(req, res){
-    let id = await usuarioController.authToken(req);
-    if (!id) return res.status(403).send("Acesso negado");
-    return res.send(await usuarioController.deleteUsuario(req.params.id));
+    return res.send(await modeloController.deleteModeloFabricante(req.params.modelo));
 });
 
 router.post("/modelo", async function(req, res){
-    return res.send(await usuarioController.postUsuario(req.body));
+    return res.send(await modeloController.postModeloFabricante(req.body));
 });
 
 module.exports = router;
