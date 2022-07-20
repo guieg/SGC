@@ -1,25 +1,25 @@
 const express = require('express');
-const usuarioController = require('../controller/usuario.controllerr');
+const automovelController = require('../controller/automovel.controller');
 const router = express.Router();
 const { signupValidation, loginValidation } = require('../utils/validation');
 
 router.get("/automoveis", async function(req, res){
-    return res.send(await usuarioController.listarUsuarios());
+    return res.send(await automovelController.listarAutomoveis());
 });
 
-router.get("/usuario/:id", async function(req, res){
-    return res.send(await usuarioController.getUsuario(req.params.id));
+router.get("/automovel/:chassi", async function(req, res){
+    return res.send(await automovelController.getAutomovel(req.params.chassi));
 });
 
 
 router.delete("/automovel/:chassi", async function(req, res){
     let id = await usuarioController.authToken(req);
     if (!id) return res.status(403).send("Acesso negado");
-    return res.send(await usuarioController.deleteUsuario(req.params.id));
+    return res.send(await automovelController.deleteAutomovel(req.params.chassi));
 });
 
 router.post("/automovel", async function(req, res){
-    return res.send(await usuarioController.postUsuario(req.body));
+    return res.send(await automovelController.postAutomovel(req.body));
 });
 
 module.exports = router;
