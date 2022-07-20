@@ -12,7 +12,7 @@ async function inserirCliente(cliente) {
     connection.end();
 }
 
-async function listarCliente() {
+async function listarClientes() {
     let query = "SELECT * FROM cliente";
     connection = db.connect();
     let response = await connection.query(query);
@@ -50,4 +50,4 @@ async function deletaClientePorId(id) {
 }
 
 
-module.exports = {inserirCliente, listarCliente, recuperaClientePorId, deletaClientePorId}
+module.exports = {inserirCliente, listarClientes, recuperaClientePorId, deletaClientePorId}
