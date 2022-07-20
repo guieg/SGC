@@ -1,7 +1,7 @@
 const db = require('../../utils/db')
 const Automovel = require('../automovel.model')
 
-function inserirAutomovel(automovel) {
+async function inserirAutomovel(automovel) {
     let query = "INSERT INTO automovel SET ?";
     connection = db.connect();
     connection.query(query, automovel, function(err) {
