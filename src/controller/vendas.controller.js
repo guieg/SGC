@@ -7,7 +7,7 @@ async function listarVendas() {
 }
 
 async function getVenda(nf) {
-    return await vendasDAO.recuperaVendaPorNF(nf);
+    return await vendasDAO.recuperaVendasPorNF(nf);
 }
 
 async function deleteVenda(nf) {
