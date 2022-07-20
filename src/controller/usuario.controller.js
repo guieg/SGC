@@ -1,4 +1,3 @@
-const Cliente = require('../model/cliente.model')
 const usuarioDAO = require('../model/DAO/usuario.dao');
 const Usuario = require('../model/usuario.model');
 
