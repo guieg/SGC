@@ -38,6 +38,14 @@ async function recuperaUsuarioPorId(id) {
     return usuarios;
 }
 
+async function recuperaUsuarioPorEmail(email) {
+    let query = "SELECT * FROM usuario WHERE `email` = "+ db.mysql.escape(email);
+    connection = db.connect();
+    let response = await connection.query(query);
+    connection.end();
+    return response[0];
+}
+
 async function deletaUsuarioPorId(id) {
     let query = "DELETE FROM usuario WHERE `id` = "+ db.mysql.escape(id);
     connection = db.connect();
@@ -142,4 +150,4 @@ async function updateUsuarioEndereco(id, endereco) {
     return usuarios;
 }
 
-module.exports = {inserirUsuario, listarUsuarios, recuperaUsuarioPorId, deletaUsuarioPorId, updateUsuarioUsername, updateUsuarioSenha, updateUsuarioNome, updateUsuarioCPF, updateUsuarioEmail, updateUsuarioTelefone, updateUsuarioEndereco}
+module.exports = {recuperaUsuarioPorEmail, inserirUsuario, listarUsuarios, recuperaUsuarioPorId, deletaUsuarioPorId, updateUsuarioUsername, updateUsuarioSenha, updateUsuarioNome, updateUsuarioCPF, updateUsuarioEmail, updateUsuarioTelefone, updateUsuarioEndereco}

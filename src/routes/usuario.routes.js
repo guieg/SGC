@@ -24,7 +24,11 @@ router.post("/usuario", async function(req, res){
 });
 
 router.post("/cadastro", signupValidation, async function(req, res){
-    res.send(await usuarioController.postUsuario(req.body));
+    res.status(await usuarioController.cadastroUsuario(req.body)).send();
+});
+
+router.post("/login", loginValidation, async function(req, res){
+    res.status(await usuarioController.postUsuario(req.body)).send();
 });
 
 module.exports = router;

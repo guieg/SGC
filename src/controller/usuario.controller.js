@@ -1,5 +1,6 @@
 const usuarioDAO = require('../model/DAO/usuario.dao');
 const Usuario = require('../model/usuario.model');
+const bcrypt = require('bcryptjs');
 
 
 async function listarUsuarios() {
@@ -21,6 +22,17 @@ async function postUsuario(body) {
     return await usuarioDAO.inserirUsuario(novoUsuario);
 }
 
+async function cadastroUsuario(body) {
+    let usuario = usuarioDAO.recuperaUsuarioPorEmail(body.email);
+    if (usuario) return 409;
+    bcrypt.hash(body.senha, 10, (err, hash) => {
+        if(err) return 500;
+        body.senha = hash;
+        postUsuario(body);
+    });
+    
+}
 
 
-module.exports = {listarUsuarios, getUsuario, deleteUsuario, postUsuario}
+
+module.exports = {cadastroUsuario, listarUsuarios, getUsuario, deleteUsuario, postUsuario}
