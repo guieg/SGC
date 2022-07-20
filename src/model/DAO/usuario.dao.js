@@ -1,21 +1,21 @@
+const { response } = require('express');
 const db = require('../../utils/db')
 const Usuario = require('../usuario.model')
 
 async function inserirUsuario(usuario) {
-    let query = "INSERT INTO usuario SET ?";
+    let query = "INSERT INTO usuario SET username = " + db.mysql.escape(usuario.username) + ", senha = " + db.mysql.escape(usuario.senha) 
+    + ", nome = " + db.mysql.escape(usuario.nome)+ ", cpf= " + db.mysql.escape(usuario.cpf) + ", email = " + db.mysql.escape(usuario.email) 
+    + ", telefone = " + db.mysql.escape(usuario.telefone) + ", endereco = " + db.mysql.escape(usuario.endereco);
     connection = db.connect();
-    connection.query(query, usuario, function(err) {
-        if(err) throw err;
-    });
-
-    connection.end();
+    await connection.query(query);
+    connection.end(); 
 }
 
 async function listarUsuarios() {
     let query = "SELECT * FROM usuario";
     connection = db.connect();
     let response = await connection.query(query);
-    connection.end();
+    //connection.end();
     let usuarios = [];
     for (let index = 0; index < response.length; index++) {
         usuarios.push(new Usuario(response[index]));
