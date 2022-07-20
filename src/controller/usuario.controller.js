@@ -24,22 +24,22 @@ async function postUsuario(body) {
 
 async function cadastroUsuario(body) {
     let usuario = usuarioDAO.recuperaUsuarioPorEmail(body.email);
-    if (usuario) return 409;
+    if (usuario) return {code: 409, msg: 'Usuário já existe'};
     bcrypt.hash(body.senha, 10, (err, hash) => {
-        if(err) return 500;
+        if(err) return {code: 500, msg:'Erro interno'};
         body.senha = hash;
         postUsuario(body);
     });
-    return 201
+    return {msg: 201, msg: 'OK'};
 }
 
 async function loginUsuario(body) {
     let usuario = usuarioDAO.recuperaUsuarioPorEmail(body.email);
-    if (!usuario) return 400;
-    bcrypt.compare(body.senha, usuario.senha, (err, result) => {
-        if (err) return 401
+    if (!usuario) return {code: 400, msg: 'Usuário não existe'};
+    bcrypt.compare(body.senha, usuario.senha, (err) => {
+        if (err) return {code: 401, msg: 'Senha incorreta'};
         const token = jwt.sign({id:usuario.id},'secrect',{ expiresIn: '1h' });
-        return token;
+        return {msg: 201, msg: 'OK', token};
     });
     
 }

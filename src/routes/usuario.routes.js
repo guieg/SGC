@@ -24,11 +24,13 @@ router.post("/usuario", async function(req, res){
 });
 
 router.post("/cadastro", signupValidation, async function(req, res){
-    res.status(await usuarioController.cadastroUsuario(req.body)).send();
+    let result = await usuarioController.cadastroUsuario(req.body);
+    res.status(result.code).send(result.msg);
 });
 
 router.post("/login", loginValidation, async function(req, res){
-    res.status(await usuarioController.postUsuario(req.body)).send();
+    let result = await usuarioController.postUsuario(req.body)
+    res.status(result.code).send({msg: result.msg, token: result.token});
 });
 
 module.exports = router;
