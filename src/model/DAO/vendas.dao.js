@@ -1,7 +1,7 @@
 const db = require('../../utils/db')
 const Vendas = require('../vendas.model')
 
-function inserirVenda(vendas) {
+async function inserirVenda(vendas) {
     let query = "INSERT INTO vendas SET ?";
     connection = db.connect();
     connection.query(query, vendas, function(err) {
