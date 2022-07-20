@@ -4,7 +4,7 @@ const usuarioDAO = require('../model/DAO/usuario.dao')
 
 
 async function listarClientes() {
-    return clienteDAO.listarClientes();
+    return await clienteDAO.listarClientes();
 }
 
 async function getCliente(id) {

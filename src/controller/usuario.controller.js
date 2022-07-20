@@ -5,7 +5,7 @@ const jwt = require('jsonwebtoken');
 
 
 async function listarUsuarios() {
-    return usuarioDAO.listarUsuarios();
+    return await usuarioDAO.listarUsuarios();
 }
 
 async function getUsuario(id) {

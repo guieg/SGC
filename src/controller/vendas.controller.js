@@ -3,7 +3,7 @@ const vendasDAO = require('../model/DAO/vendas.dao');
 
 
 async function listarVendas() {
-    return vendasDAO.listarVendas();
+    return await vendasDAO.listarVendas();
 }
 
 async function getVenda(nf) {
