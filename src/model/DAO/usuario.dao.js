@@ -1,7 +1,7 @@
 const db = require('../../utils/db')
 const Usuario = require('../usuario.model')
 
-function inserirUsuario(usuario) {
+async function inserirUsuario(usuario) {
     let query = "INSERT INTO usuario SET ?";
     connection = db.connect();
     connection.query(query, usuario, function(err) {
