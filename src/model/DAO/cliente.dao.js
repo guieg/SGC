@@ -24,6 +24,19 @@ async function listarCliente() {
     return clientes;
 }
 
+async function recuperaClientePorId(id) {
+    let query = "SELECT * FROM cliente WHERE `u_id` = "+ db.mysql.escape(id);
+    connection = db.connect();
+    let response = await connection.query(query);
+    connection.end();
+    let cliente = [];
+    for (let index = 0; index < response.length; index++) {
+        cliente.push(new Cliente(response[index]));
+        
+    }
+    return cliente;
+}
+
 async function deletaClientePorId(id) {
     let query = "DELETE FROM cliente WHERE `u_id` = "+ db.mysql.escape(id);
     connection = db.connect();
@@ -37,4 +50,4 @@ async function deletaClientePorId(id) {
 }
 
 
-module.exports = {inserirCliente, listarCliente, deletaClientePorId}
+module.exports = {inserirCliente, listarCliente, recuperaClientePorId, deletaClientePorId}
