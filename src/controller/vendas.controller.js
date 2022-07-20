@@ -22,6 +22,10 @@ async function updateVendaVID(nf, vid) {
     return await vendasDAO.updateVendasVID(nf, vid);
 }
 
+async function updateVendasData(nf, data) {
+    return await vendasDAO.updateVendasData(nf, data);
+}
+
 async function updateVendasFormaPagamento(nf, fp) {
     return await vendasDAO.updateVendasFormaPagamento(nf, fp);
 }
@@ -33,4 +37,4 @@ async function postVenda(body) {
 
 
 
-module.exports = {listarVendas, getVenda, deleteVenda, updateVendaCID, updateVendaVID, updateVendasFormaPagamento, postVenda}
+module.exports = {listarVendas, getVenda, deleteVenda, updateVendaCID, updateVendaVID, updateVendasData, updateVendasFormaPagamento, postVenda}

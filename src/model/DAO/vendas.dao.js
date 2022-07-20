@@ -47,7 +47,7 @@ async function deletaVendasPorNF(num_nota_fiscal) {
         vendas.push(new Vendas(response[index]));
         
     }
-    return Vendas;
+    return vendas;
 }
 
 async function updateVendasCID(num_nota_fiscal, c_id) {
