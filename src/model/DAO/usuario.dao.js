@@ -7,15 +7,15 @@ async function inserirUsuario(usuario) {
     connection.query(query, usuario, function(err) {
         if(err) throw err;
     });
-
     connection.end();
+    return await recuperaUsuarioPorEmail(usuario.email).id; 
 }
 
 async function listarUsuarios() {
     let query = "SELECT * FROM usuario";
     connection = db.connect();
     let response = await connection.query(query);
-    connection.end();
+    //connection.end();
     let usuarios = [];
     for (let index = 0; index < response.length; index++) {
         usuarios.push(new Usuario(response[index]));
