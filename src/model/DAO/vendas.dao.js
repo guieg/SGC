@@ -102,4 +102,4 @@ async function updateVendasFormaPagamento(num_nota_fiscal, forma_pagamento) {
     return vendas;
 }
 
-module.exports = {inserirVendas, listarVendas, recuperaVendasPorNF, deletaVendasPorNF, updateVendasCID, updateVendasVID, updateVendasData, updateVendasFormaPagamento}
+module.exports = {inserirVenda, listarVendas, recuperaVendasPorNF, deletaVendasPorNF, updateVendasCID, updateVendasVID, updateVendasData, updateVendasFormaPagamento}
