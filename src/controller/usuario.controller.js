@@ -22,24 +22,25 @@ async function postUsuario(body) {
     return await usuarioDAO.inserirUsuario(novoUsuario);
 }
 
-async function cadastroUsuario(body) {
-    let usuario = usuarioDAO.recuperaUsuarioPorEmail(body.email);
-    if (usuario) return {code: 409, msg: 'Usuário já existe'};
+async function cadastroUsuario(body, res) {
+    let usuario = await usuarioDAO.recuperaUsuarioPorEmail(body.email);
+    console.log(usuario);
+    if (usuario != undefined) return  res.status(409).send({msg: 'Usuário já existe'});
     bcrypt.hash(body.senha, 10, (err, hash) => {
-        if(err) return {code: 500, msg:'Erro interno'};
+        if(err) return  res.status(500).send({msg:'Erro interno'});
         body.senha = hash;
         postUsuario(body);
     });
-    return {msg: 201, msg: 'OK'};
+    return res.status(201).send({msg: 'OK'});
 }
 
-async function loginUsuario(body) {
-    let usuario = usuarioDAO.recuperaUsuarioPorEmail(body.email);
-    if (!usuario) return {code: 400, msg: 'Usuário não existe'};
+async function loginUsuario(body, res) {
+    let usuario = await usuarioDAO.recuperaUsuarioPorEmail(body.email);
+    if (usuario == undefined) return res.status(400).send({msg: 'Usuário não existe'});
     bcrypt.compare(body.senha, usuario.senha, (err) => {
-        if (err) return {code: 401, msg: 'Senha incorreta'};
+        if (err) return res.status(401).send({msg: 'Senha incorreta'});
         const token = jwt.sign({id:usuario.id},'secrect',{ expiresIn: '1h' });
-        return {msg: 201, msg: 'OK', token};
+        return res.status(201).send({msg: 'OK', token});
     });
     
 }
