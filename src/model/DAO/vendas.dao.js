@@ -18,7 +18,7 @@ async function listarVendas() {
     connection.end();
     let vendas = [];
     for (let index = 0; index < response.length; index++) {
-        automoveis.push(new Vendas(response[index]));
+        vendas.push(new Vendas(response[index]));
         
     }
     return vendas;
@@ -50,4 +50,56 @@ async function deletaVendasPorNF(num_nota_fiscal) {
     return Vendas;
 }
 
-module.exports = {inserirVendas, listarVendas, recuperaVendasPorNF, deletaVendasPorNF}
+async function updateVendasCID(num_nota_fiscal, c_id) {
+    let query = "UPDATE vendas SET 'c_id' = " + db.mysql.escape(c_id) + "WHERE `num_nota_fiscal` = "+ db.mysql.escape(num_nota_fiscal);
+    connection = db.connect();
+    let response = await connection.query(query);
+    connection.end();
+    let vendas = [];
+    for (let index = 0; index < response.length; index++) {
+        vendas.push(new Vendas(response[index]));
+        
+    }
+    return vendas;
+}
+
+async function updateVendasVID(num_nota_fiscal, v_id) {
+    let query = "UPDATE vendas SET 'v_id' = " + db.mysql.escape(v_id) + "WHERE `num_nota_fiscal` = "+ db.mysql.escape(num_nota_fiscal);
+    connection = db.connect();
+    let response = await connection.query(query);
+    connection.end();
+    let vendas = [];
+    for (let index = 0; index < response.length; index++) {
+        vendas.push(new Vendas(response[index]));
+        
+    }
+    return vendas;
+}
+
+async function updateVendasData(num_nota_fiscal, data) {
+    let query = "UPDATE vendas SET 'data' = " + db.mysql.escape(data) + "WHERE `num_nota_fiscal` = "+ db.mysql.escape(num_nota_fiscal);
+    connection = db.connect();
+    let response = await connection.query(query);
+    connection.end();
+    let vendas = [];
+    for (let index = 0; index < response.length; index++) {
+        vendas.push(new Vendas(response[index]));
+        
+    }
+    return vendas;
+}
+
+async function updateVendasFormaPagamento(num_nota_fiscal, forma_pagamento) {
+    let query = "UPDATE vendas SET 'forma_pagamento' = " + db.mysql.escape(forma_pagamento) + "WHERE `num_nota_fiscal` = "+ db.mysql.escape(num_nota_fiscal);
+    connection = db.connect();
+    let response = await connection.query(query);
+    connection.end();
+    let vendas = [];
+    for (let index = 0; index < response.length; index++) {
+        vendas.push(new Vendas(response[index]));
+        
+    }
+    return vendas;
+}
+
+module.exports = {inserirVendas, listarVendas, recuperaVendasPorNF, deletaVendasPorNF, updateVendasCID, updateVendasVID, updateVendasData, updateVendasFormaPagamento}
