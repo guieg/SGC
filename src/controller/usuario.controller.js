@@ -5,7 +5,7 @@ const jwt = require('jsonwebtoken');
 const vendedorController = require('./vendedor.controller');
 const clienteController = require('./cliente.controller');
 const { recuperaClientePorId } = require('../model/DAO/cliente.dao');
-
+const auth = require('../utils/auth');
 
 async function checaVendedor(id) {
     let vendedores = await vendedorController.listarVendedores();
@@ -58,7 +58,7 @@ async function loginUsuario(body, res) {
     if (usuario == undefined) return res.status(400).send({msg: 'Usuário não existe'});
     bcrypt.compare(body.senha, usuario.senha, (err) => {
         if (err) return res.status(401).send({msg: 'Senha incorreta'});
-        const token = jwt.sign({id:usuario.id},'secrect',{ expiresIn: '1h' });
+        const token = jwt.sign({id:usuario.id}, auth.jwtSecretKey,{ expiresIn: '1h' });
         return res.status(201).send({msg: 'OK', token});
     });
     
@@ -74,7 +74,7 @@ async function authToken(req) {
     }
     try{
         const token = req.headers.authorization.split(' ')[1];
-        const decoded = jwt.verify(token, 'secrect');
+        const decoded = jwt.verify(token, auth.jwtSecretKey);
         let usuario = await usuarioDAO.recuperaUsuarioPorId(decoded.id);
         if (usuario != undefined) {
             return decoded;
