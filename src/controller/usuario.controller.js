@@ -44,11 +44,16 @@ async function cadastroUsuario(body, res) {
     if (usuario != undefined) return  res.status(409).send({msg: 'Usuário já existe'});
     bcrypt.hash(body.senha, 10, async (err, hash) => {
         if(err) return  res.status(500).send({msg:'Erro interno'});
-        body.senha = hash;
-        await postUsuario(body);
-        //body.id = await usuarioDAO.recuperaUsuarioPorEmail(body.email).id;
-        //if (body.role == 'Vendedor') vendedorController.postVendedor(body);
-       // if (body.role == 'Cliente') clienteController.postCliente(body);
+        try{
+            body.senha = hash;
+            await postUsuario(body);
+            let novoUsuario = await usuarioDAO.recuperaUsuarioPorEmail(body.email);
+            if (body.role == 'Vendedor') await vendedorController.postVendedor({id: novoUsuario.id, gerente: 0});
+            if (body.role == 'Gerente') await vendedorController.postVendedor({id: novoUsuario.id, gerente: 1});
+            if (body.role == 'Cliente') await clienteController.postCliente({id: novoUsuario.id});
+        }catch(e){
+            console.log(e);
+        }
     });
     return res.status(201).send({msg: 'OK'});
 }

@@ -4,7 +4,7 @@ const UsuarioDAO = require('./usuario.dao')
 
 
 async function inserirCliente(cliente) {
-    let query = "INSERT INTO cliente SET ?";
+    let query = "INSERT INTO cliente SET u_id = " + db.mysql.escape(cliente.id);
     connection = db.connect();
     connection.query(query, cliente, function(err) {
         if(err) throw err;

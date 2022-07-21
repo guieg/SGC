@@ -1,6 +1,6 @@
 const Cliente = require('../model/cliente.model')
 const clienteDAO = require('../model/DAO/cliente.dao');
-const usuarioDAO = require('../model/DAO/usuario.dao')
+const usuarioDAO = require('../model/DAO/usuario.dao');
 
 
 async function listarClientes() {
@@ -17,7 +17,7 @@ async function deleteCliente(id) {
 }
 
 async function postCliente(body) {
-    let novoCliente = new Usuario({id: body.id});
+    let novoCliente = new Cliente({id: body.id});
     return await clienteDAO.inserirCliente(novoCliente);
 }
 

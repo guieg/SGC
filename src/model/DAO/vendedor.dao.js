@@ -14,7 +14,7 @@ async function updateVendedor(id, value) {
 }
 
 async function inserirVendedor(vendedor) {
-    let query = "INSERT INTO vendedor SET u_id = " + db.mysql.escape(vendedor.id) + " gerente = " + db.mysql.escape(vendedor.gerente);
+    let query = "INSERT INTO vendedor SET u_id = " + db.mysql.escape(vendedor.id) + ", gerente = " + db.mysql.escape(vendedor.gerente);
     connection = db.connect();
     connection.query(query);
     //connection.end();
