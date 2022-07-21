@@ -50,12 +50,7 @@ async function recuperaVendedorPorId(id) {
     connection = db.connect();
     let response = await connection.query(query);
     connection.end();
-    let vendedor = [];
-    for (let index = 0; index < response.length; index++) {
-        vendedor.push(new Cliente(response[index]));
-        
-    }
-    return vendedor;
+    return response[0];
 }
 
 async function deletaVendedorPorId(id) {

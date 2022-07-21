@@ -26,5 +26,6 @@ services:
       - "MYSQL_DB=${MYSQL_DB}"
       - "MYSQL_PORT=${MYSQL_PORT}"
       - "SECRET=${SECRET}"
+      - "SGC_API_PORT=${SGC_API_PORT}"
 
 

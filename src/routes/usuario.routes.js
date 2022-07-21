@@ -4,15 +4,6 @@ const vendedorController = require('../controller/vendedor.controller');
 const router = express.Router();
 const { signupValidation, loginValidation } = require('../utils/validation');
 
-
-router.post("/usuario/vendedor", async function(req, res){
-    let id = await usuarioController.authToken(req);
-    if (!id) return res.status(403).send("Acesso negado");
-    let novoid = await usuarioController.cadastroUsuario(req.body, res);
-    console.log(novoid);
-    return res.send(await vendedorController.postVendedor({id: novoid, gerente: req.body.gerente}));
-});
-
 router.put("/usuario/:id/set-gerente", async function(req, res){
     let id = await usuarioController.authToken(req);
     if (!id) return res.status(403).send("Acesso negado");
@@ -41,7 +32,12 @@ router.get("/usuario/:id", async function(req, res){
 router.delete("/usuario/:id", async function(req, res){
     let id = await usuarioController.authToken(req);
     if (!id ) return res.status(403).send("Acesso negado");
-    return res.send(await usuarioController.deleteUsuario(req.params.id));
+    try {
+        return res.send(await usuarioController.deleteUsuario(req.params.id));
+    } catch (error) {
+        console.log(error)
+        return res.status(500).send("Erro interno");
+    }
 });
 
 router.post("/usuario", async function(req, res){

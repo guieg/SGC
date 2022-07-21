@@ -29,6 +29,8 @@ async function getUsuario(id) {
 
 
 async function deleteUsuario(id) {
+    if (await vendedorController.recuperaVendedorPorid(id) != undefined) await vendedorController.deleteVendedor(id);
+    if (await clienteController.recuperaClientePorid(id) != undefined) await clienteController.deleteCliente(id);
     if(await usuarioDAO.recuperaUsuarioPorId(id) != undefined) return await usuarioDAO.deletaUsuarioPorId(id)
     return undefined;
 }

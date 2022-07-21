@@ -9,6 +9,10 @@ async function rebaixarVendedor(id) {
     return await vendedorDAO.updateVendedor(id, false);
 } 
 
+async function recuperaVendedorPorid(id) {
+    return await vendedorDAO.recuperaVendedorPorId(id);
+} 
+
 async function listarGerentes(){
     return await vendedorDAO.listarGerentes();
 }
@@ -34,4 +38,4 @@ async function postVendedor(body) {
 
 
 
-module.exports = {rebaixarVendedor, promoverVendedor, listarGerentes, listarVendedores, getVendedor, deleteVendedor, postVendedor}
+module.exports = {recuperaVendedorPorid, rebaixarVendedor, promoverVendedor, listarGerentes, listarVendedores, getVendedor, deleteVendedor, postVendedor}

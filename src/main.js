@@ -1,7 +1,7 @@
 const createError = require('http-errors');
 const express = require('express');
 const bodyParser = require('body-parser');
-const cors = require('cors');
+//require('dotenv/config');
 const app = express();
 app.use(express.json())
 app.use(express.urlencoded({extended: true}))
@@ -23,5 +23,5 @@ app.use((err, req, res, next) => {
     });
 });
 
-app.listen(8081, () => console.log(`SGC api iniciada!`));
+app.listen(process.env.SGC_API_PORT, () => console.log(`sgc-api iniciada! escutando porta: ${process.env.SGC_API_PORT}`));
 
