@@ -1,13 +1,14 @@
 const mysql = require("mysql");
 const syncSql = require("sync-mysql")
 const util = require('util')
+require('dotenv/config');
 
 
 const config = {
-    host: 'localhost', // O host do banco. Ex: localhost
-    user: 'root', // Um usuário do banco. Ex: user 
-    password: '010203', // A senha do usuário. Ex: user123
-    database: 'sgc' // A base de dados a qual a aplicação irá se conectar, deve ser a mesma onde foi executado o Código 1. Ex: node_mysql
+    host: process.env.MYSQL_HOSTNAME, // O host do banco. Ex: localhost
+    user: process.env.MYSQL_USER, // Um usuário do banco. Ex: user 
+    password: process.env.MYSQL_ROOT_PASSWORD, // A senha do usuário. Ex: user123
+    database: process.env.MYSQL_DB // A base de dados a qual a aplicação irá se conectar, deve ser a mesma onde foi executado o Código 1. Ex: node_mysql
 }
 
 function connect(){

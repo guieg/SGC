@@ -3,11 +3,24 @@ services:
   mysql:
     image: mysql
     ports:
-      - 3306:3306
+      - "${MYSQL_PORT}:${MYSQL_PORT}"
       #- 33060:33060
     environment:
-      - MYSQL_ROOT_PASSWORD=010203
+      - "MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}"
     volumes:
       - ./data:/var/lib/mysql
       - ./scripts/init-database.sql:/docker-entrypoint-initdb.d/1.sql
     command: "mysqld --lower_case_table_names=1" 
+
+  api:
+    build: .
+    ports:
+      - "${SGC_API_PORT}:${SGC_API_PORT}"
+    environment:
+      - "MYSQL_HOSTNAME=${MYSQL_HOSTNAME}"
+      - "MYSQL_USER=${MYSQL_USER}"
+      - "MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}"
+      - "MYSQL_DB=${MYSQL_DB}"
+      - "MYSQL_PORT:${MYSQL_PORT}"
+
+
