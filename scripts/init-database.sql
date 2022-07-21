@@ -102,7 +102,7 @@ CREATE TABLE IF NOT EXISTS `sgc`.`automovel` (
   `ano` INT NOT NULL,
   `valor` DOUBLE NOT NULL,
   `mf_modelo` VARCHAR(45) NOT NULL,
-  `v_nf` VARCHAR(45) NOT NULL,
+  `v_nf` VARCHAR(45),
   PRIMARY KEY (`chassi`),
   INDEX `fk_Automovel_modelo_fabricante1_idx` (`mf_modelo` ASC) VISIBLE,
   INDEX `fk_Automovel_Venda1_idx` (`v_nf` ASC) VISIBLE,

@@ -10,6 +10,7 @@ services:
     volumes:
       - ./data:/var/lib/mysql
       - ./scripts/init-database.sql:/docker-entrypoint-initdb.d/1.sql
+      - ./scripts/fill-database.sql:/docker-entrypoint-initdb.d/2.sql
     command: "mysqld --lower_case_table_names=1" 
 
   api:
