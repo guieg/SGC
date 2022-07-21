@@ -48,8 +48,7 @@ async function cadastroUsuario(body, res) {
             body.senha = hash;
             await postUsuario(body);
             let novoUsuario = await usuarioDAO.recuperaUsuarioPorEmail(body.email);
-            if (body.role == 'Vendedor') await vendedorController.postVendedor({id: novoUsuario.id, gerente: 0});
-            else if (body.role == 'Gerente') await vendedorController.postVendedor({id: novoUsuario.id, gerente: 1});
+            if (body.role == 'Vendedor' || body.role == 'Gerente') await vendedorController.postVendedor({id: novoUsuario.id, gerente: (body.role == 'Gerente')});
             else await clienteController.postCliente({id: novoUsuario.id});
         }catch(e){
             console.log(e);
