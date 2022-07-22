@@ -130,7 +130,7 @@ async function updateAutomovelMFModelo(chassi, mf_modelo) {
 }
 
 async function updateAutomovelVNF(chassi, v_nf) {
-    let query = "UPDATE automovel SET 'v_nf' = " + db.mysql.escape(v_nf) + "WHERE `chassi` = "+ db.mysql.escape(chassi);
+    let query = "UPDATE automovel SET v_nf = " + db.mysql.escape(v_nf) + " WHERE chassi = "+ db.mysql.escape(chassi);
     connection = db.connect();
     let response = await connection.query(query);
     connection.end();

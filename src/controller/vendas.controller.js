@@ -1,5 +1,6 @@
 const Vendas = require('../model/vendas.model')
 const vendasDAO = require('../model/DAO/vendas.dao');
+const automovelController = require('../controller/automovel.controller');
 
 
 async function listarVendas() {
@@ -31,8 +32,13 @@ async function updateVendasFormaPagamento(nf, fp) {
 }
 
 async function postVenda(body) {
-    let novaVenda = new Venda({num_nota_fiscal: body.num_nota_fiscal, c_id: body.c_id, v_id: body.v_id, data: body.data, forma_pagamento: body.forma_pagamento});
-    return await vendasDAO.inserirVenda(novaVenda);
+    let nfe = "NFE-" + Math.floor(Math.random() * (999999- 100000) + 100000);
+    while ((await vendasDAO.recuperaVendasPorNF(nfe)).length != 0) {
+        nfe = "NFE-" +  Math.floor(Math.random() * (999999- 100000) + 100000);
+    }
+    let novaVenda = new Vendas({num_nota_fiscal: nfe, c_id: body.c_id, v_id: body.v_id, data: new Date(), forma_pagamento: body.forma_pagamento});
+    await vendasDAO.inserirVenda(novaVenda);
+    return await automovelController.updateAutomovelVNF(body.chassi, nfe);
 }
 
 

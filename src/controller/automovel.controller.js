@@ -43,8 +43,6 @@ async function updateAutomovelMFModelo(chassi, modelo) {
 }
 
 async function updateAutomovelVNF(chassi, nf) {
-    let venda = await vendasDAO.recuperaVendasPorNF(nf);
-    if (venda == undefined) return res.status(400).send({msg: 'Venda não existe'});
     return await automovelDAO.updateAutomovelVNF(chassi, nf);
 }
 
