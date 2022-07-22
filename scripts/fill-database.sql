@@ -24,6 +24,7 @@ INSERT INTO cliente SET u_id = (SELECT id FROM usuario WHERE email = "cliente2@e
 INSERT INTO modelo_fabricante SET modelo = "Uno", fabricante = "FIAT";
 INSERT INTO modelo_fabricante SET modelo = "Logan", fabricante = "Renault";
 INSERT INTO modelo_fabricante SET modelo = "Aventador", fabricante = "Lamborghini";
+INSERT INTO modelo_fabricante SET modelo = "Mustang", fabricante = "Ford";
 
 INSERT INTO automovel SET chassi = "000000", cor = "prata", ano = 2022, valor = 25000, mf_modelo = "Uno";
 INSERT INTO automovel SET chassi = "111111", cor = "preto", ano = 2022, valor = 30000, mf_modelo = "Logan";
