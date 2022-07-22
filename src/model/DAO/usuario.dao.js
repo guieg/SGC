@@ -37,7 +37,7 @@ async function recuperaUsuarioPorEmail(email) {
     let query = "SELECT * FROM usuario WHERE `email` = "+ db.mysql.escape(email);
     connection = db.connect();
     let response = await connection.query(query);
-    connection.end();
+    //connection.end();
     return response[0];
 }
 

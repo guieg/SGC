@@ -53,6 +53,14 @@ async function recuperaVendedorPorId(id) {
     return response[0];
 }
 
+async function recuperaGerentePorId(id) {
+    let query = "SELECT * FROM vendedor WHERE gerente = 1 AND u_id = "+ db.mysql.escape(id);
+    connection = db.connect();
+    let response = await connection.query(query);
+    connection.end();
+    return response[0];
+}
+
 async function deletaVendedorPorId(id) {
     let query = "DELETE FROM vendedor WHERE `u_id` = "+ db.mysql.escape(id);
     connection = db.connect();
@@ -66,4 +74,4 @@ async function deletaVendedorPorId(id) {
 }
 
 
-module.exports = {updateVendedor, listarGerentes, inserirVendedor, listarVendedores, recuperaVendedorPorId, deletaVendedorPorId}
+module.exports = {recuperaGerentePorId, updateVendedor, listarGerentes, inserirVendedor, listarVendedores, recuperaVendedorPorId, deletaVendedorPorId}

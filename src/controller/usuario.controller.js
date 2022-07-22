@@ -14,9 +14,8 @@ async function checaVendedor(id) {
 }
 
 async function checaGerente(id) {
-    let gerentes = await vendedorController.listarGerentes();
-    idsGerentes = gerentes.map((gerente) => gerente.u_id);
-    return idsGerentes.includes(id);
+    let usuario = await vendedorController.recuperaGerentePorid(id);
+    return (usuario != undefined);
 }
 
 async function listarUsuarios() {
@@ -43,8 +42,9 @@ async function postUsuario(body) {
 
 async function cadastroUsuario(body, res) {
     let usuario = await usuarioDAO.recuperaUsuarioPorEmail(body.email);
+    
     if (usuario != undefined) return  res.status(409).send({msg: 'Usuário já existe'});
-    bcrypt.hash(body.senha, 10, async (err, hash) => {
+    await bcrypt.hash(body.senha, 10, async (err, hash) => {
         if(err) return  res.status(500).send({msg:'Erro interno'});
         try{
             body.senha = hash;
@@ -54,6 +54,7 @@ async function cadastroUsuario(body, res) {
             else await clienteController.postCliente({id: novoUsuario.id});
         }catch(e){
             console.log(e);
+            return res.status(400).send({msg: 'Bad request'});
         }
     });
     return res.status(201).send({msg: 'OK'});

@@ -47,7 +47,10 @@ router.post("/usuario", async function(req, res){
 });
 
 router.post("/cadastro", signupValidation, async function(req, res){
-    return usuarioController.cadastroUsuario(req.body, res);
+    let auth = await usuarioController.authToken(req);
+    let isEmployee = (req.body.role == 'Vendedor' || req.body.role == 'Gerente');
+    if ((!auth && isEmployee) || (!(await usuarioController.checaGerente(auth.id)) && isEmployee) ) return res.status(403).send("Acesso negado");
+    return await usuarioController.cadastroUsuario(req.body, res);
 });
 
 router.post("/login", loginValidation, async function(req, res){
