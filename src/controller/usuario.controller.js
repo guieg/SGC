@@ -8,9 +8,8 @@ const { recuperaClientePorId } = require('../model/DAO/cliente.dao');
 const auth = require('../utils/auth');
 
 async function checaVendedor(id) {
-    let vendedores = await vendedorController.listarVendedores();
-    idsVendedores = vendedores.map((vendedor) => vendedor.u_id);
-    return idsVendedores.includes(id);
+    let usuario = await vendedorController.recuperaVendedorPorid(id);
+    return (usuario != undefined);
 }
 
 async function checaGerente(id) {

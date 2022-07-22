@@ -8,6 +8,14 @@ async function listarAutomoveis() {
     return await automovelDAO.listarAutomoveis();
 }
 
+async function listarAutomoveisVendidos() {
+    return await automovelDAO.listarAutomoveisVendidos();
+}
+
+async function listarAutomoveisAVenda() {
+    return await automovelDAO.listarAutomoveisAVenda();
+}
+
 async function getAutomovel(chassi) {
     return await automovelDAO.recuperaAutomovelPorChassi(chassi);
 }
@@ -47,4 +55,4 @@ async function postAutomovel(body) {
 
 
 
-module.exports = {listarAutomoveis, getAutomovel, deleteAutomovel, updateAutomovelCor, updateAutomovelAno, updateAutomovelValor, updateAutomovelMFModelo, updateAutomovelVNF, postAutomovel}
+module.exports = {listarAutomoveisVendidos, listarAutomoveisAVenda, listarAutomoveis, getAutomovel, deleteAutomovel, updateAutomovelCor, updateAutomovelAno, updateAutomovelValor, updateAutomovelMFModelo, updateAutomovelVNF, postAutomovel}

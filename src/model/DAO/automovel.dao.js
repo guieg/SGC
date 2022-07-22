@@ -24,6 +24,33 @@ async function listarAutomoveis() {
     return automoveis;
 }
 
+
+async function listarAutomoveisVendidos() {
+    let query = "SELECT * FROM automovel WHERE v_nf IS NOT NULL";
+    connection = db.connect();
+    let response = await connection.query(query);
+    connection.end();
+    let automoveis = [];
+    for (let index = 0; index < response.length; index++) {
+        automoveis.push(new Automovel(response[index]));
+        
+    }
+    return automoveis;
+}
+
+async function listarAutomoveisAVenda() {
+    let query = "SELECT * FROM automovel WHERE v_nf IS NULL";
+    connection = db.connect();
+    let response = await connection.query(query);
+    connection.end();
+    let automoveis = [];
+    for (let index = 0; index < response.length; index++) {
+        automoveis.push(new Automovel(response[index]));
+        
+    }
+    return automoveis;
+}
+
 async function recuperaAutomovelPorChassi(chassi) {
     let query = "SELECT * FROM automovel WHERE `chassi` = "+ db.mysql.escape(chassi);
     connection = db.connect();
@@ -115,4 +142,4 @@ async function updateAutomovelVNF(chassi, v_nf) {
     return automoveis;
 }
 
-module.exports = {inserirAutomovel, listarAutomoveis, recuperaAutomovelPorChassi, deletaAutomovelPorChassi, updateAutomovelCor, updateAutomovelAno, updateAutomovelValor, updateAutomovelMFModelo, updateAutomovelVNF}
+module.exports = {listarAutomoveisVendidos, listarAutomoveisAVenda, inserirAutomovel, listarAutomoveis, recuperaAutomovelPorChassi, deletaAutomovelPorChassi, updateAutomovelCor, updateAutomovelAno, updateAutomovelValor, updateAutomovelMFModelo, updateAutomovelVNF}
