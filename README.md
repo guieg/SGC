@@ -1,5 +1,3 @@
-teste
-
 # SGC - Sistema Gerenciador de Concessionária
 
 # Requisitos
